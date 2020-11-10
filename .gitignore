@@ -11,3 +11,8 @@ web-build/
 
 # macOS
 .DS_Store
+
+node_modules/
+
+google-services.json
+firebase.config.ts

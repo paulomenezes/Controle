@@ -5,9 +5,15 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import FinancialRevenueScreen from '../screens/FinancialRevenueScreen';
+import FinancialExpenseScreen from '../screens/FinancialExpenseScreen';
+import {
+  BottomTabParamList,
+  FinancialRevenueParamList,
+  FinancialExpenseParamList,
+  FinancialResumeParamList,
+} from '../types';
+import FinancialResumeScreen from '../screens/FinancialResumeScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,20 +22,37 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+      initialRouteName="FinancialResume"
+      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+    >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="FinancialResume"
+        component={FinancialResumeNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          title: 'Resumo',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-cash" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="FinancialRevenue"
+        component={FinancialRevenueNavigator}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          title: 'Receita',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-log-in" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="FinancialExpense"
+        component={FinancialExpenseNavigator}
+        options={{
+          title: 'Despesa',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-log-out" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -42,32 +65,41 @@ function TabBarIcon(props: { name: string; color: string }) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const TabResumeStack = createStackNavigator<FinancialResumeParamList>();
 
-function TabOneNavigator() {
+function FinancialResumeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+    <TabResumeStack.Navigator>
+      <TabResumeStack.Screen
+        name="FinancialResumeScreen"
+        component={FinancialResumeScreen}
       />
-    </TabOneStack.Navigator>
+    </TabResumeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const TabRevenueStack = createStackNavigator<FinancialRevenueParamList>();
 
-function TabTwoNavigator() {
+function FinancialRevenueNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+    <TabRevenueStack.Navigator>
+      <TabRevenueStack.Screen
+        name="FinancialRevenueScreen"
+        component={FinancialRevenueScreen}
       />
-    </TabTwoStack.Navigator>
+    </TabRevenueStack.Navigator>
+  );
+}
+
+const TabExpenseStack = createStackNavigator<FinancialExpenseParamList>();
+
+function FinancialExpenseNavigator() {
+  return (
+    <TabExpenseStack.Navigator>
+      <TabExpenseStack.Screen
+        name="FinancialExpenseScreen"
+        component={FinancialExpenseScreen}
+      />
+    </TabExpenseStack.Navigator>
   );
 }
